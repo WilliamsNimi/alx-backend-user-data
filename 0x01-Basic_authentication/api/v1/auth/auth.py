@@ -28,7 +28,9 @@ class Auth:
         """ adding authentication to the request header
         @request: a flask request object
         Return: Returns the authorization header with the request object"""
-        return None
+        if request is None:
+            return None
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ Current user function
