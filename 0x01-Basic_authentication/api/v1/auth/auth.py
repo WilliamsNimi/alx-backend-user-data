@@ -6,6 +6,7 @@ from Typing import List, TypeVar
 
 class Auth:
     """ This is the Auth class"""
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ ensures authentication is required
         @path: Argument for the route path
@@ -14,9 +15,13 @@ class Auth:
         return False
 
     def authorization_header(self, request=None) -> str:
-        """ adding authentication to the request header"""
+        """ adding authentication to the request header
+        @request: a flask request object
+        Return: Returns the authorization header with the request object included"""
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """ returns current user"""
+        """ Current user function
+        @request: a flask request object
+        Return: Returns the current user of the session"""
         return None
