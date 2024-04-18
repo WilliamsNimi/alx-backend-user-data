@@ -13,8 +13,9 @@ class BasicAuth(Auth):
         @authorization_header: the authorization header to be authenticated
         Return: Returns base64 of the header
         """
-        if authorization_header is None or
-        type(authorization_header) is not str:
+        if authorization_header is None:
+            return None
+        if type(authorization_header) is not str:
             return None
         if authorization_header.startswith('Basic '):
             return authorization_header[6:]
