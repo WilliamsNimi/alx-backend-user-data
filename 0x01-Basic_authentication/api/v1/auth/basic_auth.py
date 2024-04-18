@@ -5,5 +5,3 @@ from api.v1.auth.auth import Auth
 
 class BasicAuth(Auth):
     """ The basic Auth class extends Auth"""
-
-    
