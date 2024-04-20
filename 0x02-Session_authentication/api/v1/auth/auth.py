@@ -37,3 +37,13 @@ class Auth:
         @request: a flask request object
         Return: Returns the current user of the session"""
         return None
+
+    def session_cookie(self, request = None):
+        """ getting session cookie
+        @request: Request to be examined
+        Return: Return the session cookie
+        """
+        if request is None:
+            return None
+        _my_session_id = getenv('SESSION_NAME')
+        return request.cookies.get(_my_session_id)
