@@ -23,6 +23,10 @@ class SessionAuth(Auth):
 
     def user_id_for_session_id(self,
                                session_id: str = None) -> str:
+        """ Retrieving user_id that belongs to a session
+        @session_id: The session_id containing the user_id
+        Return: user_id mapped to session_id
+        """
         if session_id is None:
             return None
         if type(session_id) is not str:
