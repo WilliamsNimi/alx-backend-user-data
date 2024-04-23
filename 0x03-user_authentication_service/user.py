@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+""" SQL Alchemy user model """
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+
+
+class User(Base):
+    """ The User Model class"""
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    email = Column(String)
+    hashed_password = Column(String)
+    session_id = Column(String)
+    reset_token = Column(String)
