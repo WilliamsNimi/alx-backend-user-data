@@ -5,6 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import InvalidRequestError, NoResultFound
+from typing import Mapping
 
 from user import Base, User
 
@@ -44,3 +46,21 @@ class DB:
             self._session.rollback()
             new_user = None
         return new_user
+
+    def find_user_by(self, **kwargs: Mapping):
+        """ A method to search the db
+        @query_str: the query to search for
+        Return: Returns the first row where the query is found
+        """
+        users = self._session.query(User)
+        if not users:
+            raise NoResultFound
+        if not kwargs:
+            raise InvalidRequestError
+        for key in kwargs.keys():
+            if not hasattr(User, key):
+                raise InvalidRequestError
+        found_user = self._session.query(User).filter_by(**kwargs).first()
+        if not found_user:
+            raise NoResultFound
+        return found_user
