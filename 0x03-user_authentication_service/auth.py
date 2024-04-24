@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """ Password authentication module """
 import bcrypt
+from db import DB
+from user import User
+from typing import TypeVar
 
 
 def _hash_password(password: str):
@@ -12,11 +15,6 @@ def _hash_password(password: str):
     p_salt = bcrypt.gensalt()
     p_hash = bcrypt.hashpw(p_bytes, p_salt)
     return p_hash
-
-
-from db import DB
-from user import User
-from typing import TypeVar
 
 
 class Auth:
@@ -50,5 +48,5 @@ class Auth:
             user = self._db.find_user_by(email=email)
             p_bytes = password.encode('utf-8')
             return bycrypt.checkpw(p_bytes, user.hashed_password)
-        except:
+        except Exception:
             return False

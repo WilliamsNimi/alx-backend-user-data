@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """ Basic Flask application"""
 from flask import Flask, jsonify, request
-app = Flask(__name__)
 from auth import Auth
+from auth import Auth
+
+
 AUTH = Auth()
 
 
@@ -10,6 +12,7 @@ AUTH = Auth()
 def getRequest() -> str:
     """basic get request"""
     return jsonify({"message": "Bienvenue"})
+
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
@@ -25,7 +28,7 @@ def users():
         return jsonify({"email": email, "message": "user created"}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
-    
-    
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
