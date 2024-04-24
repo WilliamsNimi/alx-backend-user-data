@@ -69,4 +69,3 @@ class Auth:
             return session_id
         except Exception:
             return None
-        
