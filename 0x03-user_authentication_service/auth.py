@@ -4,6 +4,7 @@ import bcrypt
 from db import DB
 from user import User
 from typing import TypeVar
+import uuid
 
 
 def _hash_password(password: str):
@@ -16,6 +17,9 @@ def _hash_password(password: str):
     p_hash = bcrypt.hashpw(p_bytes, p_salt)
     return p_hash
 
+def _generate_uuid():
+    """ uuid generating function"""
+    return str(uuid.uuid4())
 
 class Auth:
     """Auth class to interact with the authentication database.
