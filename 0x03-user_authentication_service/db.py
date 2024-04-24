@@ -64,3 +64,17 @@ class DB:
         if not found_user:
             raise NoResultFound
         return found_user
+
+    def update_user(self, user_id: int, **kwargs: Mapping) -> None:
+        """ This method updates user based on id
+        @user_id: user Id to be found
+        Return: Returns none
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(User, key):
+                raise ValueError
+            else:
+                setattr(user, key, value)
+        self._session.add(user)
+        self._session.commit()
