@@ -59,6 +59,7 @@ def logout():
         return redirect('/')
     abort(403)
 
+
 @app.route('/profile', method=['GET'], strict_slashes=False)
 def profile():
     """ user profile function"""
