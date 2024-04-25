@@ -69,3 +69,16 @@ class Auth:
             return session_id
         except Exception:
             return None
+
+    def get_user_from_session_id(session_id: str) -> TypeVar('User'):
+        """ function to get user associated with a session id
+        @session_id: session id to search for
+        Return: Returns the User found or none if not found
+        """
+        if session_id is None:
+            return None
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            return user
+        except Exception:
+            return None
