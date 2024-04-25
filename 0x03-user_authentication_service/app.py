@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """ Basic Flask application"""
-from flask import Flask, jsonify, request
-from auth import Auth
+from flask import Flask, jsonify, request, redirect
 from auth import Auth
 
 
 AUTH = Auth()
+app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
