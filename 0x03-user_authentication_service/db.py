@@ -7,7 +7,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
-from typing import Mapping
 
 from user import Base, User
 
@@ -48,7 +47,7 @@ class DB:
             new_user = None
         return new_user
 
-    def find_user_by(self, **kwargs: Mapping):
+    def find_user_by(self, **kwargs) -> User:
         """ A method to search the db
         @query_str: the query to search for
         Return: Returns the first row where the query is found
