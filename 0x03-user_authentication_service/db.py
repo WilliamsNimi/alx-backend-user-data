@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
+from typing import Mapping
 
 from user import Base, User
 
@@ -47,13 +48,19 @@ class DB:
             new_user = None
         return new_user
 
-    def find_user_by(self, **kwargs) -> User:
+    def find_user_by(self, **kwargs: Mapping) -> User:
         """ A method to search the db
         @query_str: the query to search for
         Return: Returns the first row where the query is found
         """
+        users = self._session.query(User)
+        if not Users:
+            raise NoResultFound
         if not kwargs:
             raise InvalidRequestError
+        for key in kwargs.keys():
+            if not hasattr(User, key):
+                raise InvalidRequestError
         found_user = self._session.query(User).filter_by(**kwargs).first()
         if not found_user:
             raise NoResultFound
