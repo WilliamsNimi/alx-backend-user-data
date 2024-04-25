@@ -100,3 +100,19 @@ class Auth:
             return user_uuid
         except Exception:
             raise ValueError()
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """ update user password function
+        @reset_token: This token tracks update
+        @password: new password
+        Return: Returns None
+        """
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            self._db.update_user(user.id,
+                                 hashed_password=_hash_password(password),
+                                 reset_token=None)
+            return None
+        except Exception:
+            raise ValueError
+        return None
