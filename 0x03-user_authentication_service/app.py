@@ -30,7 +30,7 @@ def users():
         return jsonify({"message": "email already registered"}), 400
 
 
-@app.route('/sessions', method=['POST'], strict_slashes=False)
+@app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
     """ Login authentication function"""
     email = request.form.get('email')
@@ -44,7 +44,7 @@ def login():
     return response
 
 
-@app.route('/sessions', method=['DELETE'], strict_slashes=False)
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """logout route function"""
     session_id = request.cookies.get('session_id')
@@ -60,7 +60,7 @@ def logout():
     abort(403)
 
 
-@app.route('/profile', method=['GET'], strict_slashes=False)
+@app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile():
     """ user profile function"""
     session_id = request.cookies.get('session_id')
@@ -72,7 +72,7 @@ def profile():
     return jsonify({"email": "{}".format(user.email)})
 
 
-@app.route('/reset_password', method=['POST'], strict_slashes=False)
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """ Password generation route"""
     email = request.form.get('email')
@@ -84,7 +84,7 @@ def get_reset_password_token():
     except Exception:
         abort(403)
 
-@app.route('/reset_password', method=['PUT'], strict_slashes=False)
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password():
     """ Password update route"""
     email = request.form.get('email')
