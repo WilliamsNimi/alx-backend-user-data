@@ -70,7 +70,7 @@ class Auth:
         except Exception:
             return None
 
-    def get_user_from_session_id(session_id: str) -> TypeVar('User'):
+    def get_user_from_session_id(self, session_id: str) -> TypeVar('User'):
         """ function to get user associated with a session id
         @session_id: session id to search for
         Return: Returns the User found or none if not found
@@ -82,3 +82,11 @@ class Auth:
             return user
         except Exception:
             return None
+
+    def destroy_session(self, user_id: int)-> None:
+        """ User session destruction function
+        @user_id: User id to find user whose session is to be destroyed
+        Return: None
+        """
+        self._db.update_user(user_id, session_id=None)
+        return None
