@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def getRequest() -> str:
+def getRequest():
     """basic get request"""
     return jsonify({"message": "Bienvenue"})
 
@@ -23,11 +23,13 @@ def users():
     """
     email = request.form.get('email')
     password = request.form.get('password')
+    if not email or not password:
+        abort(404)
     try:
         AUTH.register_user(email, password)
-        return jsonify({"email": email, "message": "user created"}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
+    return jsonify({"email": email, "message": "user created"})
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
@@ -55,9 +57,8 @@ def logout():
         abort(403)
 
     if user:
-        AUTH.destroy_session(user_id)
+        AUTH.destroy_session(user.id)
         return redirect('/')
-    abort(403)
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
