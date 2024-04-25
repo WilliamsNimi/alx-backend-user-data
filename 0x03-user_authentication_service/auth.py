@@ -30,7 +30,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> TypeVar('User'):
+    def register_user(self, email: str, password: str) -> User:
         """ Registers the User
         @email: Email of the new user
         @password: password of the new user
@@ -65,7 +65,7 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             session_id = _generate_uuid()
-            self._db.update_user(user.id, session_id=session_db)
+            self._db.update_user(user.id, session_id=session_id)
             return session_id
         except Exception:
             return None
