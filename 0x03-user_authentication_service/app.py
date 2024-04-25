@@ -69,7 +69,7 @@ def profile():
     user = AUTH.get_user_from_session_id(session_id)
     if not user:
         abort(403)
-    return 200, jsonify({"email": "{}".format(user.email)})
+    return jsonify({"email": "{}".format(user.email)})
 
 
 @app.route('/reset_password', method=['POST'], strict_slashes=False)
@@ -80,7 +80,7 @@ def get_reset_password_token():
         abort(403)
     try:
         reset_token = AUTH.get_reset_password_token(email)
-        return 200, jsonify({"email": email, "reset_token": reset_tokem})
+        return jsonify({"email": email, "reset_token": reset_tokem})
     except Exception:
         abort(403)
 
@@ -90,9 +90,11 @@ def update_password():
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
+    if not email or not reset_token or not new_password:
+        abort(403)
     try:
         AUTH.update_password(reset_token, new_password)
-        return 200, jsonify({"email": email, "message": "Password updated"})
+        return jsonify({"email": email, "message": "Password updated"})
     except Exception:
         abort(403)
 
