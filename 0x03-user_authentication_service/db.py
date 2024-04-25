@@ -52,14 +52,8 @@ class DB:
         @query_str: the query to search for
         Return: Returns the first row where the query is found
         """
-        users = self._session.query(User)
-        if not users:
-            raise NoResultFound
         if not kwargs:
             raise InvalidRequestError
-        for key in kwargs.keys():
-            if not hasattr(User, key):
-                raise InvalidRequestError
         found_user = self._session.query(User).filter_by(**kwargs).first()
         if not found_user:
             raise NoResultFound
