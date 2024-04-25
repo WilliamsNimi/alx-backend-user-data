@@ -54,7 +54,7 @@ class DB:
         Return: Returns the first row where the query is found
         """
         users = self._session.query(User)
-        if not Users:
+        if not users:
             raise NoResultFound
         if not kwargs:
             raise InvalidRequestError
