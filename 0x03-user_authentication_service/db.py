@@ -48,7 +48,7 @@ class DB:
             new_user = None
         return new_user
 
-    def find_user_by(self, **kwargs: Mapping) -> User:
+    def find_user_by(self, **kwargs: Mapping):
         """ A method to search the db
         @query_str: the query to search for
         Return: Returns the first row where the query is found
