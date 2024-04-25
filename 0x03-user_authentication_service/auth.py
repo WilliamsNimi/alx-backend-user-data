@@ -3,11 +3,11 @@
 import bcrypt
 from db import DB
 from user import User
-from typing import TypeVar
+from typing import TypeVar, Union
 import uuid
 
 
-def _hash_password(password: str):
+def _hash_password(password: str) -> bytes:
     """ Password hash method
     @password: The password string to be hashed
     Return: returns a salted hash of the pasword
@@ -18,7 +18,7 @@ def _hash_password(password: str):
     return p_hash
 
 
-def _generate_uuid():
+def _generate_uuid() -> str:
     """ uuid generating function"""
     return str(uuid.uuid4())
 
@@ -70,7 +70,7 @@ class Auth:
         except Exception:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> TypeVar('User'):
+    def get_user_from_session_id(self, session_id: str) -> Union[None, User]:
         """ function to get user associated with a session id
         @session_id: session id to search for
         Return: Returns the User found or none if not found
