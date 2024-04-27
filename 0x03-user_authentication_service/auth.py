@@ -53,10 +53,10 @@ class Auth:
             user = self._db.find_user_by(email=email)
             if not user:
                 return False
-            p_bytes = password.encode('utf-8')
-            return bycrypt.checkpw(p_bytes, user.hashed_password)
         except Exception:
             return False
+         p_bytes = password.encode('utf-8')
+         return bycrypt.checkpw(p_bytes, user.hashed_password)
 
     def create_session(self, email: str) -> str:
         """ A session creation function
