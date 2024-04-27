@@ -39,10 +39,10 @@ class Auth:
         try:
             self._db.find_user_by(email=email)
         except Exception:
-            raise ValueError("User {} already exists".format(email))
-        user = User(email=email, password=_hashed_password(password))
-        self._db.add_user(user)
-        return user
+            user = User(email=email, password=_hashed_password(password))
+            self._db.add_user(user)
+            return user
+        raise ValueError("User {} already exists".format(email))
 
     def valid_login(self, email: str, password: str) -> bool:
         """Login validation method
