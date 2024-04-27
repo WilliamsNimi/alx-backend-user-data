@@ -35,15 +35,19 @@ def users():
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
     """ Login authentication function"""
-    email = request.form.get('email')
-    password = request.get('password')
-    if AUTH.valid_login(email, password):
-        response = make_response(jsonify({
-            "email": email, "message": "logged in"}))
-        response.set_cookie('session_id', AUTH.create_session(email))
-    else:
+    try:
+        email = request.form.get('email')
+        password = request.get('password')
+        if not email or not password:
+            abort(401)
+        if not AUTH.valid_login(email, password):
+            abort(401)
+        session_id = AUTH.create_session(email)
+        response = jsonify({"email": email, "message": "logged in"})
+        response.set_cookie('session_id', session_id)
+        return response
+    except Exception:
         abort(401)
-    return response
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
