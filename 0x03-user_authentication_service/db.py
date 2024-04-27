@@ -66,7 +66,7 @@ class DB:
             raise NoResultFound
         return found_user
 
-    def update_user(self, user_id: int, **kwargs: Mapping) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """ This method updates user based on id
         @user_id: user Id to be found
         Return: Returns none
