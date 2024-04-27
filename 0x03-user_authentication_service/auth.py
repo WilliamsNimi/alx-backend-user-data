@@ -55,8 +55,8 @@ class Auth:
                 return False
         except Exception:
             return False
-         p_bytes = password.encode('utf-8')
-         return bycrypt.checkpw(p_bytes, user.hashed_password)
+        p_bytes = password.encode('utf-8')
+        return bcrypt.checkpw(p_bytes, user.hashed_password)
 
     def create_session(self, email: str) -> str:
         """ A session creation function
