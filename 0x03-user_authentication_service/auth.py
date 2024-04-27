@@ -89,8 +89,11 @@ class Auth:
         @user_id: User id to find user whose session is to be destroyed
         Return: None
         """
-        self._db.update_user(user_id, session_id=None)
-        return None
+        try:
+            user = self._db.find_user_by(id=user_id)
+            return self._db.update_user(user_id, session_id=None)
+        except Exception:
+            return None
 
     def get_reset_password_token(self, email: str) -> str:
         """ password reset function"""
