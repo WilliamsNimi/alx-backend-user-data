@@ -119,4 +119,3 @@ class Auth:
             return None
         except Exception:
             raise ValueError
-        return None
