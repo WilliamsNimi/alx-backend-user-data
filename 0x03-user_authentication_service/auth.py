@@ -103,7 +103,7 @@ class Auth:
             self._db.update_user(user.id, reset_token=reset_token)
             return user_uuid
         except Exception:
-            raise ValueError()
+            raise ValueError
 
     def update_password(self, reset_token: str, password: str) -> None:
         """ update user password function
