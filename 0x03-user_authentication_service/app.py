@@ -37,7 +37,7 @@ def login():
     """ Login authentication function"""
     try:
         email = request.form.get('email')
-        password = request.get('password')
+        password = request.form.get('password')
         if not email or not password:
             abort(401)
         if not AUTH.valid_login(email, password):
