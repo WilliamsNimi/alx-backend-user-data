@@ -83,7 +83,8 @@ def get_reset_password_token():
         abort(403)
     try:
         reset_token = AUTH.get_reset_password_token(email)
-        return jsonify({"email": email, "reset_token": reset_tokem})
+        return jsonify({"email": str(email),
+                        "reset_token": str(reset_token)})
     except Exception:
         abort(403)
 
